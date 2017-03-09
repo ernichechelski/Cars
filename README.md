@@ -1,9 +1,9 @@
-## 🚗🚕🚙 Cars Database
+## 🚗 Cars Database
 Simple web app written in AngularJS and Vapor using MySQL database and Bootstrap for theme. Provides simple CRUD operations on database. Based on basic vapor template.
 (If you're using vapor toolbox, you can use: `vapor new --template=basic` to create such template).
 
-## 💻 Written in Xcode and Sublime Text 3. 
-Made just for fun 😄 Fun framework 😃 Code needs some refactoring 😅
+## 💻 Tools 
+Written in Xcode and Sublime Text 3. Made just for fun 😄 Fun framework 😃 Code needs some refactoring 😅
 
 ## 📖 Documentation
 
