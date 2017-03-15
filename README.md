@@ -22,3 +22,4 @@ https://videos.raywenderlich.com/screencasts/server-side-swift-with-vapor-authen
 
 ## 😡 Difficulties
 I could not integrate project using Bootstrap with Leaf templating.
+English is a difficult language for writing readme 😅
