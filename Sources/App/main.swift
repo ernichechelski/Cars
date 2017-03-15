@@ -2,20 +2,63 @@ import Vapor
 import VaporMySQL
 import Fluent
 import Foundation
-
+import Turnstile
+import Auth
+import HTTP
 
 
 let drop = Droplet()
 
-
+drop.addConfigurable(middleware: AuthMiddleware(user:CarUser.self), name: "auth")
 drop.preparations.append(Car.self)
+drop.preparations.append(CarUser.self)
 try drop.addProvider(VaporMySQL.Provider.self)
 let database = drop.database?.driver as? MySQLDriver
 
 
+
+
+///////AUTH
+
+
+
+drop.post("login") { request in
+	guard let login = request.formURLEncoded?["login"]?.string, let passhash  = request.formURLEncoded?["passhash"]?.string else {
+		return Abort.badRequest.message
+	}
+	let cred = UsernamePassword(username: login, password: passhash)
+	do {
+		try request.auth.login(cred)
+		return Response(redirect: "/home")
+	}catch let e as TurnstileError {
+		return e.description
+	}
+}
+
+drop.post("logout") { request in
+	try request.auth.logout()
+	return Response(redirect: "/")
+}
+//////AUTH END'
+
 drop.get("") { request in
+	return try drop.view.make("auth.html")
+}
+
+drop.get("home") { request in
+	guard let currentUser = try? request.auth.user() as! CarUser else {
+		return "You cannot access this page!"
+	}
 	return try drop.view.make("angular.html")
 }
+
+
+
+
+drop.get("emo") { request in
+	return "😄"
+}
+
 
 
 drop.get("version") { request in
@@ -94,6 +137,19 @@ drop.get("cars", Int.self, String.self) { request, carId, property in
 
 drop.delete("cars",Int.self) { request, carId in
 
+	print(request)
+	do {
+		let currentUser = try? request.auth.user() as! CarUser
+	}
+	catch {
+		return error.localizedDescription
+	}
+	
+	guard let currentUser = try? request.auth.user() else {
+		return "You cannot modify database!"
+	}
+	
+	
 	guard let db = database else {
 		return "No MySQL database connection"
 	}
@@ -108,6 +164,14 @@ drop.delete("cars",Int.self) { request, carId in
 }
 
 drop.patch("cars",Int.self) { request, carId in
+	
+	
+	
+	
+	guard let currentUser = try? request.auth.user() as! CarUser else {
+		return "You cannot modify database!"
+	}
+	
 	if let db = drop.database?.driver as? MySQLDriver, var car = try Car.query().filter("id", carId).first(){
 		try car.make = (request.json?.extract("make"))!
 		try car.model = (request.json?.extract("model"))!
@@ -123,6 +187,11 @@ drop.patch("cars",Int.self) { request, carId in
 
 
 drop.post("new") {	request in
+	
+	guard let currentUser = try? request.auth.user() as! CarUser else {
+		return "You cannot modify database!"
+	}
+	
 	var car = try Car(json: request.json!)
 	try car.save()
 	return car
