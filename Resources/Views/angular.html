@@ -2,272 +2,231 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- BOOTSTRAP -->
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<!-- BOOTSTRAP -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-	<style type="text/css">
-		body { 
-			padding-top: 65px; 
-		}
-		.panel-info {
-			padding: 50px;
-		}
-	</style>
-	<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<style type="text/css">
+	body { 
+		padding-top: 65px; 
+	}
+	.panel-info {
+    padding: 50px;
+    }
+</style>
+<head>
 
-		<body>
-			<nav class="navbar navbar-inverse navbar-fixed-top">
-				<div class="container">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="#">Cars Database</a>
-					</div>
-					<div id="navbar" class="collapse navbar-collapse">
-						<ul class="nav navbar-nav">
-							<li class="active"><a href="#">List</a></li>
-							<li><a href="#about">About</a></li>
-
-						</ul>
-					</div><!--/.nav-collapse -->
-				</div>
-			</nav>
-
-			<div>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Cars Database</a>
 			</div>
-			<div class="panel panel-info" ng-app="myApp">
-				<!-- Default panel contents -->
-				<div class="panel-heading">Cars</div>
-				<div class="panel-body"  ng-controller="carsCtrl">
-					<!-- Table -->
-					<table class="table" >
-						<tr>
-							<th>Model</th>
-							<th>Make</th> 
-							<th class="text-right">Actions</th>
-						</tr>
-						<tr ng-repeat="x in cars">
-							<form>
-								<td>{{ x.model }}</td>
-								<td>{{ x.make }}</td>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">List</a></li>
+					<li><a href="#about">About</a></li>
+					
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</nav>
 
-
-								<td class="text-right">
-									<!-- Trigger the modal with a button -->
-									<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal{{x.id}}">More information</button>
-
-									<!-- Modal -->
-									<div id="myModal{{x.id}}" class="modal fade text-left" role="dialog">
-										<div class="modal-dialog">
-
-											<!-- Modal content-->
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal">&times;</button>
-													<h4 class="modal-title">More info</h4>
-												</div>
-												<div class="modal-body">
-													<p>Production date: {{ x.year }}</p>
-													<p>Model details: {{ x.sub_model }}</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-												</div>
-											</div>
-
-										</div>
-									</div>
-
-									<!-- Trigger the modal with a button -->
-									<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal{{x.id}}">Edit</button>
-
-									<!-- Modal -->
-									<div id="editModal{{x.id}}" class="modal fade text-left" role="dialog">
-										<div class="modal-dialog">
-
-											<!-- Modal content-->
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal">&times;</button>
-													<h4 class="modal-title">Edit form here</h4>
-												</div>
-												<div class="modal-body">
-													<form>
-														<div class="form-group">
-															<label for="model">Model:</label>
-															<input ng-model="x.model" type="text" class="form-control" id="model" placeholder="Enter model">
-														</div>
-														<div class="form-group">
-															<label for="make">Make:</label>
-															<input ng-model="x.make" type="text" class="form-control" id="make" placeholder="Enter make">
-														</div>
-														<div class="form-group">
-															<label for="model">Submodel:</label>
-															<input ng-model="x.sub_model" type="text" class="form-control" id="submodel" placeholder="Enter submodel">
-														</div>
-														<div class="form-group">
-															<label for="year">Year:</label>
-															<input ng-model="x.year" type="number" class="form-control" id="year" placeholder="Enter year">
-														</div>
-														<button type="button" data-dismiss="modal" ng-click="updateCar(x)" class="btn btn-success">Save changes</button>
-													</form>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-												</div>
-											</div>
-
-										</div>
-									</div>
-
-									<button class="btn btn-danger" ng-click="deleteCar(x.id)">Delete</button>
-								</td>
-							</form>
-						</tr>
-					</table>
+	<div>
+	</div>
+	<div class="panel panel-info" ng-app="myApp">
+		<!-- Default panel contents -->
+		<div class="panel-heading">Cars</div>
+		<div class="panel-body"  ng-controller="carsCtrl">
+			<!-- Table -->
+			<table class="table" >
+				<tr>
+					<th>Model</th>
+					<th>Make</th> 
+					<th class="text-right">Actions</th>
+				</tr>
+				<tr ng-repeat="x in cars">
 					<form>
-						<div class="form-group">
-							<label for="model">Model:</label>
-							<input ng-model="model" type="text" class="form-control" id="model" placeholder="Enter model">
-						</div>
-						<div class="form-group">
-							<label for="make">Make:</label>
-							<input ng-model="make" type="text" class="form-control" id="make" placeholder="Enter make">
-						</div>
-						<div class="form-group">
-							<label for="model">Submodel:</label>
-							<input ng-model="submodel" type="text" class="form-control" id="submodel" placeholder="Enter submodel">
-						</div>
-						<div class="form-group">
-							<label for="year">Year:</label>
-							<input ng-model="year" type="number" class="form-control" id="year" placeholder="Enter year">
-						</div>
-						<button ng-click="addCar()" type="submit" class="btn btn-success">Add new car</button>
+						<td>{{ x.model }}</td>
+						<td>{{ x.make }}</td>
+						
+						
+						<td class="text-right">
+							<!-- Trigger the modal with a button -->
+							<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal{{x.id}}">More information</button>
+							
+							<!-- Modal -->
+							<div id="myModal{{x.id}}" class="modal fade text-left" role="dialog">
+								<div class="modal-dialog">
+									
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">More info</h4>
+										</div>
+										<div class="modal-body">
+											<p>Production date: {{ x.year }}</p>
+											<p>Model details: {{ x.sub_model }}</p>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							
+							<!-- Trigger the modal with a button -->
+							<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal{{x.id}}">Edit</button>
+							
+							<!-- Modal -->
+							<div id="editModal{{x.id}}" class="modal fade text-left" role="dialog">
+								<div class="modal-dialog">
+									
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Edit form here</h4>
+										</div>
+										<div class="modal-body">
+											<form>
+												<div class="form-group">
+													<label for="model">Model:</label>
+													<input ng-model="x.model" type="text" class="form-control" id="model" placeholder="Enter model">
+														</div>
+												<div class="form-group">
+													<label for="make">Make:</label>
+													<input ng-model="x.make" type="text" class="form-control" id="make" placeholder="Enter make">
+														</div>
+												<div class="form-group">
+													<label for="model">Submodel:</label>
+													<input ng-model="x.sub_model" type="text" class="form-control" id="submodel" placeholder="Enter submodel">
+														</div>
+												<div class="form-group">
+													<label for="year">Year:</label>
+													<input ng-model="x.year" type="number" class="form-control" id="year" placeholder="Enter year">
+														</div>
+												<button type="button" data-dismiss="modal" ng-click="updateCar(x)" class="btn btn-success">Save changes</button>
+											</form>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+
+							<button class="btn btn-danger" ng-click="deleteCar(x.id)">Delete</button>
+						</td>
 					</form>
-
-
+				</tr>
+			</table>
+			<form>
+				<div class="form-group">
+					<label for="model">Model:</label>
+					<input ng-model="model" type="text" class="form-control" id="model" placeholder="Enter model">
 				</div>
-				<div class="text-right">
-					<form action="logout"  method="post">
-						<button type="submit" class="btn btn-warning">Logout</button>
-					</form>
+				<div class="form-group">
+					<label for="make">Make:</label>
+					<input ng-model="make" type="text" class="form-control" id="make" placeholder="Enter make">
 				</div>
-			</div>
-			<script type="text/javascript">
+				<div class="form-group">
+					<label for="model">Submodel:</label>
+					<input ng-model="submodel" type="text" class="form-control" id="submodel" placeholder="Enter submodel">
+				</div>
+				<div class="form-group">
+					<label for="year">Year:</label>
+					<input ng-model="year" type="number" class="form-control" id="year" placeholder="Enter year">
+				</div>
+				<button ng-click="addCar()" type="submit" class="btn btn-success">Add new car</button>
+			</form>
+			
+		</div>
+	</div>
+	
+	<script>
+		var app = angular.module('myApp', []);
 
-				
-
-				
-
-				
-
-
-
-				var app = angular.module('myApp', []).config(['$httpProvider', function($httpProvider) {
-					$httpProvider.defaults.withCredentials = true;
-				}]);
-
-
-
-				app.controller('carsCtrl', function($scope, $http) {
-
-
-					$scope.model = "";
-					$scope.make = "";	
-					$scope.submodel = "";	
-					$scope.year = 0;	
-
-					$scope.ws = new WebSocket("ws://0.0.0.0:8080/ws");	
+		app.controller('carsCtrl', function($scope, $http) {
 
 
-					$scope.ws.onmessage = function(msg) {
-						console.log(msg)
-						$scope.refresh();
-					}
-
-					$scope.ws.onopen = function(event) {
-						$scope.ws.send("Connection opened")
-					}
-
-					$http.get("/cars").then(function (response) {
-						$scope.cars = response.data
-					});
-
-					$scope.refresh = function(){
-						$http.get('/cars').then(function(response){
-							$scope.cars = response.data
-						});
-					}		
-
-					$scope.deleteCar = function(id) {
-						
-						$http({
-							url: '/cars/' + id,
-							method: "DELETE",
-							withCredentials: false
-						}).success(function (data, status, headers, config) {
-							alert(data)
-							$scope.refresh();
-						}).error(function (data, status, headers, config) {
-							$scope.refresh();
-						});
+			$scope.model = "";
+			$scope.make = "";	
+			$scope.submodel = "";	
+			$scope.year = 0;		
 
 
-					};
+			$http.get("/cars").then(function (response) {
+				$scope.cars = response.data
+			});
 
-					$scope.addCar = function(id) {
-						
-						var car = { "model":$scope.model, "make":$scope.make, "sub_model":$scope.submodel,"year":$scope.year};
-						$http({
-							withCredentials: true,
-							url: '/new',
-							method: "POST",
-							data: JSON.stringify(car),
-							headers: {'Content-Type': 'application/json'}
-						}).success(function (data, status, headers, config) {
-							alert(data)
-							$scope.refresh();
-						}).error(function (data, status, headers, config) {
-							$scope.refresh();
-						});
-					};
+			$scope.refresh = function(){
+				$http.get('/cars').then(function(response){
+					$scope.cars = response.data
+				});
+			}		
 
-					$scope.updateCar = function(car) {
-						
-						$('#editModal'+car.id).modal('hide');
-						$http({
-							url: '/cars/'+car.id,
-							withCredentials: true,
-							method: "PATCH",
-							data: JSON.stringify(car),
-							headers: {'Content-Type': 'application/json'}
-						}).success(function (data, status, headers, config) {
-							alert(data)
-							$scope.refresh();
-						}).error(function (data, status, headers, config) {
-							$scope.refresh();
-						});
-						
+			$scope.deleteCar = function(id) {
+				$http.delete('/cars/' + id).success(function (data) {
 
-						$(".modal-backdrop").hide();
-						$("body").attr("class","modal-close"); 
-					};
+					$scope.refresh();
 
 				});
+			};
 
-			</script>
+			$scope.addCar = function(id) {
+				
+				var car = { "model":$scope.model, "make":$scope.make, "sub_model":$scope.submodel,"year":$scope.year};
+				$http({
+					url: '/new',
+					method: "POST",
+					data: JSON.stringify(car),
+					headers: {'Content-Type': 'application/json'}
+				}).success(function (data, status, headers, config) {
+					$scope.refresh();
+				}).error(function (data, status, headers, config) {
+					$scope.refresh();
+				});
+			};
 
-		</body>
+			$scope.updateCar = function(car) {
+				
+				$('#editModal'+car.id).modal('hide');
+				$http({
+					url: '/cars/'+car.id,
+					method: "PATCH",
+					data: JSON.stringify(car),
+					headers: {'Content-Type': 'application/json'}
+				}).success(function (data, status, headers, config) {
+					$scope.refresh();
+				}).error(function (data, status, headers, config) {
+					$scope.refresh();
+				});
+				
 
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-		</html>
+				$(".modal-backdrop").hide();
+				$("body").attr("class","modal-close"); 
+			};
+					   
+		});
+
+	</script>
+
+</body>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</html>

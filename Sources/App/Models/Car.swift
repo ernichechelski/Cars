@@ -37,6 +37,8 @@ final class Car: Model, NodeConvertible {
 	
 	init(node: Node, in context: Context) throws {
 		
+		//id = try node.extract("id")
+		//print("2 Node id\(id)")
 		make = try node.extract("make")
 		print("2 Node make\(make)")
 		model = try node.extract("model")
