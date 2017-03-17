@@ -41,6 +41,59 @@ drop.post("logout") { request in
 }
 //////AUTH END'
 
+
+//WEBSOCKET
+
+
+
+var sockets:[WebSocket] = []
+
+func refreshData(message:String){
+	for (index, element) in sockets.enumerated() {
+		print("Item \(index): \(element)")
+		do {
+			try element.send(message)
+		}
+		catch{
+			continue
+		}
+		
+		
+	}
+}
+
+drop.socket("ws") { req, ws in
+	print("New WebSocket connected: \(ws)")
+	
+	sockets.append(ws)
+	
+	// ping the socket to keep it open
+	try background {
+		while ws.state == .open {
+			try? ws.ping()
+			drop.console.wait(seconds: 10) // every 10 seconds
+		}
+	}
+	
+	ws.onText = { ws, text in
+		print("Text received: \(text) in \(ws)")
+		
+		refreshData(message: text)
+		
+		// reverse the characters and send back
+		//let rev = String(text.characters.reversed())
+		//try ws.send(rev)
+	}
+	
+	ws.onClose = { ws, code, reason, clean in
+		print("Closed.")
+	}
+}
+
+
+
+//WEBSOCKET END
+
 drop.get("") { request in
 	return try drop.view.make("auth.html")
 }
@@ -158,6 +211,7 @@ drop.delete("cars",Int.self) { request, carId in
 	}
 	
 	try car.delete()
+	refreshData(message: "Car deleted")
 	
 	return JSON("Car deleted")
 	
@@ -178,6 +232,7 @@ drop.patch("cars",Int.self) { request, carId in
 		try car.sub_model = (request.json?.extract("sub_model"))!
 		try car.year = (request.json?.extract("year"))!
 		try car.save()
+		refreshData(message: "Car updated")
 		return JSON("Car Updated")
 	}
 	else {
@@ -194,6 +249,7 @@ drop.post("new") {	request in
 	
 	var car = try Car(json: request.json!)
 	try car.save()
+	refreshData(message: "Car added")
 	return car
 }
 
