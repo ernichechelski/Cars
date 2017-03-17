@@ -15,3 +15,6 @@ Join the welcoming community of fellow Vapor developers in [slack](http://vapor.
 
 ## 🔧 Compatibility
 This package has been tested on macOS.
+
+## ⚡️ Improvements
+To see progress of this project check another branches.
