@@ -1,5 +1,5 @@
 ## 🚗 Cars Database
-Simple web app written in AngularJS and Vapor using MySQL database and Bootstrap for theme. Provides simple CRUD operations on database. On this branch also is implemented Turnstile auth. Login page and Cars CRUD page. Based on basic vapor template.
+Simple web app written in AngularJS and Vapor using MySQL database and Bootstrap for theme. Provides simple CRUD operations on database. On this branch also is implemented Turnstile auth. Implement basic websocket based refreshing of data. Now server push database changes to all clients in real-time, by refreshing all data (of course is not efficient, but easy to implement 😅). Login page and Cars CRUD page. Based on basic vapor template.
 (If you're using vapor toolbox, you can use: `vapor new --template=basic` to create such template).
 
 ## 💻 Tools 
